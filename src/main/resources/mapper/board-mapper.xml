@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="hello.hello2.mapper.BoardMapper">
+
+    <insert id="insertBoard" parameterType="hello.hello2.dto.BoardDTO">
+        INSERT INTO board (title, content, writer, hit)
+        VALUES (
+                   #{title},
+                   #{content},
+                   #{writer},
+                   0 )
+    </insert>
+
+    <select id="selectBoardList" parameterType="hello.hello2.paging.Criteria" resultType="hello.hello2.dto.BoardDTO">
+        SELECT * FROM BOARD
+        ORDER BY idx DESC
+        LIMIT #{startPage}, #{recordsPerPage}
+    </select>
+
+    <select id="selectBoardDetail" resultType="hello.hello2.dto.BoardDTO">
+        SELECT * FROM BOARD WHERE idx=#{idx}
+    </select>
+
+    <update id="updateBoard" parameterType="hello.hello2.dto.BoardDTO">
+        UPDATE BOARD SET TITLE=#{title},WRITER=#{writer},CONTENT=#{content} WHERE IDX=#{idx}
+    </update>
+
+    <delete id="deleteBoard" parameterType="hello.hello2.dto.BoardDTO">
+        DELETE FROM BOARD WHERE IDX=#{id}
+    </delete>
+
+    <select id="selectBoardTotalCount" parameterType="hello.hello2.paging.Criteria" resultType="int">
+        SELECT COUNT(*)
+        FROM BOARD
+    </select>
+
+
+
+
+
+</mapper>
